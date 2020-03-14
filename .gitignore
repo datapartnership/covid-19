@@ -1,3 +1,12 @@
 data/
 src/
+*.swp
 *checkpoint.ipynb
+*.pdf
+*.geojson
+*.pickle
+*.shp
+*.prj
+*.shx
+*.dbf
+*.cpg
