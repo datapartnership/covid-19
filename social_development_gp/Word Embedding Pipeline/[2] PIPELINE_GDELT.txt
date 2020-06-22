@@ -1,0 +1,80 @@
+GDELT PIPELINE
+
+SERVER ROOT_PATH = /mnt/louis/
+LOCAL ROOT_PATH = F:/WB/
+
+1) [SERVER] Preprocess new data using preprocessing_gdelt.py
+----Input: Generated Data from /mnt/alicia/indonesian_news
+----Output: Preprocessed Data on ROOT_PATH/Dataset/GDELT
+
+2) [SERVER] Run train_w2v_weekly_gdelt.py
+----Location: ROOT_PATH/Issue Monitoring
+----Output: model file on ROOT_PATH/Issue Monitoring/model
+
+3) [SERVER] Run train_w2v_all_gdelt.py
+----Location: ROOT_PATH/Issue Monitoring
+----Output: model file on ROOT_PATH/Issue Monitoring/model
+
+4) [SERVER] Run extract_similar_keyword_user_level_gdelt.py
+----Location: ROOT_PATH/Issue Monitoring
+----Output: CSV files on ROOT_PATH
+
+5) [SERVER] Run extract_similar_keyword_gdelt.py
+----Location: ROOT_PATH/Issue Monitoring
+----Output: CSV files on ROOT_PATH
+
+6) [SERVER] Run extract_sentiment_top_10_gdelt_domain.py
+----Location: ROOT_PATH/Issue Monitoring
+----Output: CSV files on ROOT_PATH
+
+7) [SERVER -> Local] Download results from step 4, 5, 6
+
+8) [SERVER] Run extract_gdelt_stats.py
+----Location: ROOT_PATH
+
+9) [Local] Edit GDELT Stats from result no 8
+
+10) [Local] Run viz_sentiment_distribution_top_10_domain_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+11) [Local] Run viz_keyword_count_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+12) [Local] Run viz_keyword_count_new_normal_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+13) [Local] Run viz_areachart_weekly_evolution_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+14) [Local] Run viz_areachart_weekly_evolution_new_normal_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+15) [Local] Run viz_policy_user_level_all_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+16) [Local] Run viz_policy_user_level_all_new_normal_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+17) [Local] Run viz_policy_user_level_weekly_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+18) [Local] Run viz_policy_user_level_weekly_new_normal_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+19) [Local] Run viz_policy_user_level_overlaps_gdelt.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/chart_output
+
+20) [Local] Run viz_wordcloud_topic_keywords_compare.py
+----!!!!! IMPORTANT: output data for Twitter, Instagram, and GDELT have to be downloaded first
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Charts on ROOT_PATH/Issue Monitoring/wordcloud_output

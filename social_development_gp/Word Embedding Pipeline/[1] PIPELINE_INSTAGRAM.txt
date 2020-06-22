@@ -1,0 +1,61 @@
+INSTAGRAM PIPELINE
+
+SERVER ROOT_PATH = /mnt/louis/
+LOCAL ROOT_PATH = F:/WB/
+
+1) [SERVER] Preprocess new data using preprocessing_insta.py 
+----Input: Raw Data from /mnt/instagram/
+----Output: Preprocessed Data on ROOT_PATH/Dataset/Instagram/Cleaned
+
+2) [SERVER] FOR EACH new preprocessed data, build_final_data_insta.py
+----Input: Preprocessed Data from ROOT_PATH/Dataset/Instagram/Cleaned
+----Output: CSV File on ROOT_PATH/Dataset/Instagram/Final/Not_Aggregated
+
+3) [SERVER] Run aggregate_final_data_insta.py 
+----!!!!! IMPORTANT: The step before has to be completed first for all new data
+----Input: All CSV files on ROOT_PATH/Dataset/Instagram/Final/Not_Aggregated
+----Output: agg_final_data.csv file on ROOT_PATH/Dataset/Instagram/Final
+
+4) [SERVER] Run train_w2v_weekly_insta.py
+----Location: ROOT_PATH/Issue Monitoring
+----Output: model file on ROOT_PATH/Issue Monitoring/model
+
+5) [SERVER] Run extract_similar_keyword_user_level_insta.py 
+----Location: ROOT_PATH/Issue Monitoring
+----Output: CSV files on ROOT_PATH
+
+6) [SERVER] Run age_gender_infer_100.py --data instagram
+----Location: ROOT_PATH/Demographic_Prediction
+----Output: CSV file on ROOT_PATH
+
+7) [SERVER] Run age_gender_summarize_instagram.py
+----Location: ROOT_PATH/Demographic_Prediction
+
+8) [Local] Edit Bar chart and Pie Chart for age gender Instagram in slides report from the results of age_gender_summarize_instagram.py
+
+9) [SERVER] Run extract_instagram_stats.py
+----Location: ROOT_PATH
+
+10) [Local] Edit Instagram Stats from result no 9
+
+11) [SERVER -> Local] Download results from step 5
+
+12) [Local] Run viz_policy_user_level_all_insta.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Chart on ROOT_PATH/Issue Monitoring/chart_output
+
+13) [Local] Run viz_policy_user_level_all_new_normal_insta.ipynb
+---Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Chart on ROOT_PATH/Issue Monitoring/chart_output
+
+14) [Local] Run viz_policy_user_level_weekly_insta.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Chart on ROOT_PATH/Issue Monitoring/chart_output
+
+15) [Local] Run viz_policy_user_level_weekly_new_normal_insta.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Chart on ROOT_PATH/Issue Monitoring/chart_output
+
+16) [Local] Run viz_policy_user_level_overlaps_insta.ipynb
+----Location: ROOT_PATH/Issue Monitoring
+----Output: PNG Chart on ROOT_PATH/Issue Monitoring/chart_output
