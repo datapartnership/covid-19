@@ -13,11 +13,27 @@ Dashboards:
 
 > http://indonesiasurveys.com/google_trends/covid_updates.html
 
+------------------------------------------------------------------------------
+
+### General
+1) Code to create visualizations on the map like: generateTimeSeriesPlotFolium.py http://indonesiasurveys.com/indonesia_over_time.html
+
+2) Code to get data from Google trends: createHTMLFilesGoogleTrends.py
+
+    a) Check out our google trends dashboard: http://indonesiasurveys.com/google_trends/covid_updates.html
+  
+    b) And the html file: covid_updates.html
+
+3) Code to get data from Instagram: getInstagramDataHashtag.py
+
+4) Code to get mobility reports from Apple and Google: createVisualizationsGoogleAppleReports.py (for generating the data in the right format)
+
+
 ### Word Embedding Topic Monitoring
-Please see this [README]()
+Please see this [README](https://github.com/datapartnership/covid19/tree/master/social_development_gp/Word%20Embedding%20Pipeline)
+
 
 ### LDA and GDELT News
 Please see this [README]()
 
-### General
-Please see this [README]()
+
