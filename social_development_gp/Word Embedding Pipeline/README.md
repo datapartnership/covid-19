@@ -1,6 +1,6 @@
 # Word Embedding Topic Monitoring
 
-There are 3 data sources for this topic monitoring: Twitter, Instagram, GDELT News
+There are 3 data sources for this topic monitoring: [Twitter](https://github.com/datapartnership/covid19/tree/master/social_development_gp/Word%20Embedding%20Pipeline#twitter), [Instagram](https://github.com/datapartnership/covid19/tree/master/social_development_gp/Word%20Embedding%20Pipeline#instagram), [GDELT News](https://github.com/datapartnership/covid19/tree/master/social_development_gp/Word%20Embedding%20Pipeline#gdelt)
 
 ## Twitter
 1) [SERVER] If data is geotagged data, then run filter_geotagged_data.py
