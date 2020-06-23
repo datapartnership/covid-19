@@ -13,6 +13,8 @@ Dashboards:
 
 > http://indonesiasurveys.com/google_trends/covid_updates.html
 
+> http://indonesiasurveys.com/google_trends/covid_updates.html
+
 ------------------------------------------------------------------------------
 
 ### General
@@ -20,7 +22,7 @@ Dashboards:
 
 2) Code to get data from Google trends: createHTMLFilesGoogleTrends.py
 
-    a) Check out our google trends dashboard: http://indonesiasurveys.com/google_trends/covid_updates.html
+    a) Check out our [google trends dashboard](http://indonesiasurveys.com/google_trends/covid_updates.html)
   
     b) And the html file: covid_updates.html
 
