@@ -30,10 +30,10 @@ Dashboards:
 
 
 ### Word Embedding Topic Monitoring
-Please see this [README](https://github.com/datapartnership/covid19/tree/master/social_development_gp/Word%20Embedding%20Pipeline)
+Please see this [README](https://github.com/datapartnership/covid19/blob/master/social_development_gp/Word%20Embedding%20Pipeline/README.md)
 
 
 ### LDA and GDELT News
-Please see this [README]()
+Please see this [README](https://github.com/datapartnership/covid19/blob/master/social_development_gp/LDA%20and%20News%20Extraction/README.md)
 
 
