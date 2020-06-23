@@ -13,12 +13,12 @@ Dashboards:
 
 > http://indonesiasurveys.com/google_trends/covid_updates.html
 
-> http://indonesiasurveys.com/google_trends/covid_updates.html
+> http://indonesiasurveys.com/indonesia_over_time.html
 
 ------------------------------------------------------------------------------
 
 ### General
-1) Code to create visualizations on the map like: generateTimeSeriesPlotFolium.py http://indonesiasurveys.com/indonesia_over_time.html
+1) Code to create [visualizations on the map](http://indonesiasurveys.com/indonesia_over_time.html) like: generateTimeSeriesPlotFolium.py 
 
 2) Code to get data from Google trends: createHTMLFilesGoogleTrends.py
 
