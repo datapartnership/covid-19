@@ -1,3 +1,5 @@
+# LDA and GDELT News
+
 1) [SERVER] Code to pull GDELT articles about COVID from multilingual news sources: 
 download_gdelt_news.py
 2) [SERVER] Code to process and pull sample of Instagram data:
