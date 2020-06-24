@@ -1,0 +1,304 @@
+---
+title: "Keyword Guided LDA"
+date: "6/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r Install packages}
+# Install release version from CRAN (updating keyATM is the same command)
+install.packages(c('devtools','curl'))
+pkgbuild::check_build_tools(debug = TRUE)
+install.packages("keyATM")
+
+```
+
+```{r Install development version if necessary, echo=FALSE}
+devtools::install_github("keyATM/keyATM", ref = "v0.3.0")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r load the dataset}
+library(keyATM)
+library(quanteda)
+library(magrittr)
+library(dplyr)
+library(readr)
+```
+```{r Import data}
+#Grab the text part of the data; make sure that documents cleaned to KeyATM specifications
+docs <- read_csv("~/Desktop/Indonesia COVID/News Processing/text.csv")
+View(docs)
+```
+
+```{r read into KeyATM}
+# Read texts into keyATM
+keyATM_docs <- keyATM_read(docs)
+```
+```{r data document feature matrix}
+#data_dfm <- dfm(data_tokens) %>%
+#              dfm_trim(min_termfreq = 5, min_docfreq = 2)
+```
+```{r read into keyATM}
+#keyATM_docs <- keyATM_read(texts = data_dfm)
+```
+```{r look at the summary of the docs}
+summary(keyATM_docs)
+```
+```{r Create Keywords List}
+#Define themes like "Government Confidence" and supply necessary terms
+keywords <- list(Government_Confidence  = c("jokowi",
+                                        "luhut",
+                                        "moh",
+                                        "gugus tugas covid19",
+                                        "gugus covid19",
+                                        "terawan",
+                                        "stafsus",
+                                        "anies",
+                                        "ridwan kamil",
+                                        "ganjar pranowo",
+                                        "khofifah",
+                                        "menkes",
+                                        "kemenkes",
+                                        "achmad yurianto",
+                                        "ahmad yurianto",
+                                        "kepolisian",
+                                        "polisi",
+                                        "polri",
+                                        "tni",
+                                        "sri mulyani",
+                                        "smi",
+                                        "menteri",
+                                        "pejabat",
+                                        "penanganan covid19",
+                                        "penanganan covid",
+                                        "penanganan corona",
+                                        "perppu corona",
+                                        "perppu covid",
+                                        "perppu covid19",
+                                        "covid19 taskforce",
+                                        "taskforce"),
+                 Food_Access       = c("beras",
+                                        "gula",
+                                        "bantuan pangan",
+                                        "inflasi",
+                                        "harga",
+                                        "antri",
+                                        "kelaparan",
+                                        "persediaan",
+                                        "pangan",
+                                        "stok",
+                                        "sembako",
+                                        "Bulog",
+                                        "supermarket",
+                                        "pasar",
+                                        "kelangkaan",
+                                        "bahan pokok",
+                                        "harga sembako",
+                                        "harga bahan pokok",
+                                        "harga beras",
+                                        "harga logistik",
+                                        "suplai beras",
+                                        "suplai bahan pokok",
+                                        "suplai sembako",
+                                        "suplai logistik",
+                                        "pasokan sembako",
+                                        "pasokan bahan pokok",
+                                        "logistik",
+                                        "bantuan pangan",
+                                        "kekurangan bahan pangan",
+                                        "kekurangan pangan",
+                                        "kekurangan makanan",
+                                        "harga pangan melonjak",
+                                        "harga makanan naik",
+                                        "harga makanan melonjak",
+                                        "harga bahan pangan melonjak",
+                                        "cadangan beras",
+                                        "ketersediaan beras"),
+                 Health_Care          = c("rumah sakit",
+                                          "fasilitas kesehatan",
+                                          "faskes",
+                                          "dokter",
+                                          "Perawat",
+                                          "apd",
+                                          "alat pelindung diri",
+                                          "rs rujukan",
+                                          "ventilator",
+                                          "perawatan",
+                                          "rawat",
+                                          "wisma atlet",
+                                          "wisma atlit",
+                                          "rumah sakit",
+                                          "rawat inap",
+                                          "epidemiolog",
+                                          "nakes",
+                                          "tenaga kesehatan",
+                                          "alat pelindung",
+                                          "masker medis",
+                                          "tenaga medis",
+                                          "kurang alat pelindung",
+                                          "kurang tenaga kesehatan",
+                                          "kurang ventilator",
+                                          "kurang tenaga medis",
+                                          "puskesmas",
+                                          "bed"),
+                 Job_Loss   = c("pengangguran",
+                                "menganggur",
+                                "tidak berupah",
+                                "tidak bergaji",
+                                "pemotongan gajiv",
+                                "pemecatan",
+                                "dipecat ",
+                                "karyawan",
+                                "tunjangan",
+                                "phk ",
+                                "dirumahkan",
+                                "kartu prakerja",
+                                "kartu pra kerja",
+                                "kartu pra-kerja",
+                                "tutup",
+                                "rugi",
+                                "nganggur",
+                                "pengangguran",
+                                "menganggur",
+                                "potong gaji",
+                                "pemecatan",
+                                "pecat",
+                                "dipecat",
+                                "bansos",
+                                "tidak bekerja",
+                                "pemotongan gaji",
+                                "pemotongan hari",
+                                "berhenti kerja",
+                                "penurunan pesanan",
+                                "penurunan order",
+                                "pemberhentian",
+                                "pemutusan kerja",
+                                "pengurangan pekerja"),
+                         Masks = c("masker",
+                                  "masker",
+                                  "masker untuk semua",
+                                  "masker kain",
+                                  "masker n95",
+                                  "masker diy",
+                                  "droplet",
+                                  "langka",
+                                  "wajib masker",
+                                  "masker operasi",
+                                  "masker bedah",
+                                  "wajib pakai masker",
+                                  "wajib menggunakan masker",
+                                  "masker langka",
+                                  "kelangkaan masker",
+                                  "droplet"),
+                 Social_Distancing = c("keluar rumah",
+                          "2m",
+                          "home",
+                          "di rumah aja",
+                          "jaga jarak",
+                          "PSBB",
+                          "belajar dari rumah",
+                          "bekerja dari rumah",
+                          "2 meter",
+                          "stay at home",
+                          "work from home",
+                          "social distancing",
+                          "study from home",
+                          "physical distancing"),
+                 Stigma = c("pemakaman covid19",
+                          "intoleransi",
+                          "ditolak dimakamkan",
+                          "no place to stay",
+                          "ditolak warga",
+                          "pemakaman",
+                          "penolakan jenazah",
+                          "jenazah ditolak",
+                          "warga menolak",
+                          "masyarakat menolak",
+                          "jenazah covid",
+                          "jenazah corona"),
+                 Travel_Restrictions = c("lebaran",
+                          "mudik",
+                          "pulang kampung",
+                          "pulang kampoeng",
+                          "dilarang mudik",
+                          "karantina wilayah",
+                          "jangan mudik",
+                          "bansos",
+                          "tidak bepergian",
+                          "pembatasan",
+                          "penutupan",
+                          "penutupan wilayah",
+                          "perantau dilarang",
+                          "lock down",
+                          "lockdown"))
+```
+
+```{r checking keywords}
+#Best to prune terms that appear under .1 frequency
+key_viz <- visualize_keywords(docs = keyATM_docs, keywords = keywords)
+key_viz
+```
+
+```{r Save the visualization, echo=FALSE}
+key_viz <- visualize_keywords(docs = keyATM_docs, keywords = keywords)
+save_fig(key_viz, "keyword_indo.pdf", width = 6.5, height = 4)
+```
+
+
+```{r Get the actual values}
+values_fig(key_viz)
+```
+
+```{r Use the Dynamic KeyATM model to explicitly consider time}
+#Get time variable (weeks)
+vars_period <- read_csv("~/Desktop/Indonesia COVID/News Processing/period.csv")
+View(vars_period)
+```
+
+
+```{r get the date information}
+# Divide by a decade
+# Timestamp should start with 1 (the variable "Period")
+
+```{r Run the dynamic model}
+out <- keyATM(docs              = keyATM_docs,
+              no_keyword_topics = 8,
+              keywords          = keywords,
+              model             = "dynamic",
+              model_settings    = list(time_index = vars_period$period,
+                                       num_states = 10),
+              options           = list(seed = 250))
+```
+
+```{r create plots of alphas}
+fig_alpha <- plot_alpha(out)
+fig_alpha
+```
+
+
+
+
+```{r create time series with confidence intervals}
+out <- keyATM(docs              = keyATM_docs,
+              no_keyword_topics = 8,
+              keywords          = keywords,
+              model             = "dynamic",
+              model_settings    = list(time_index = vars_period$period,
+                                       num_states = 5),
+              options           = list(seed = 250, store_theta = TRUE, thinning = 5))
+```
+
+```{r make a timetrend plot}
+fig_timetrend <- plot_timetrend(out, xlab = "Week", width = 5)
+fig_timetrend
+```
